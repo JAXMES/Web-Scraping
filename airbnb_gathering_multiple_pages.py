@@ -23,8 +23,9 @@ while True:
     for post in postings:
         link = post.find('a', class_= 'ln2bl2p dir dir-ltr').get('href')
         link_full = 'https://www.airbnb.com' + link
-        title = post.find('div', class_= 't1jojoys dir dir-ltr')
-        title.text
+        title = post.find('div', class_= 't1jojoys dir dir-ltr').text
+        price = post.find('span', class_= 'a8jt5op dir dir-ltr').text
+        
         break
     
     next_page = soup.find('a', {'aria-label':'Next'}).get('href') # URL subset
