@@ -23,7 +23,7 @@ while True:
     postings
     
     #TRY was added to catch any errors when we have null values. Airbnb may have fix some of the issues though, but it is a great reminder
-    
+    #For loop gives a EOF error which does not affect the loop... Continue the work
     for post in postings:
         try:
             link = post.find('a', class_= 'ln2bl2p dir dir-ltr').get('href')
