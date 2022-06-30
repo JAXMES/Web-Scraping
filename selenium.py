@@ -1,5 +1,6 @@
 # pip install webdriver-manager
-#pip install urllib3
+# pip install urllib3
+# Admin permissions are needed in windows
 
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
