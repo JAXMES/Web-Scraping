@@ -9,6 +9,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
 s=Service(ChromeDriverManager().install())
+
+# Starts the browser
 driver = webdriver.Chrome(service=s)
 
 
@@ -26,3 +28,11 @@ driver.get("https://www.google.com/")
 box = driver.find_element(By.XPATH, '/html/body/div[1]/div[3]/form/div[1]/div[1]/div[1]/div/div[2]/input')
 box.send_keys('Selenium')
 box.send_keys(Keys.RETURN)
+
+
+# Clicking on a Button
+
+button = driver.find_element(By.XPATH, '/html/body/div[1]/div[3]/form/div[1]/div[1]/div[3]/center/input[1]')
+button.click()
+
+follow_link = driver.find_element(By.XPATH, '//*[@id="rso"]/div[1]/div/div/div[1]/div/a/h3').click()
