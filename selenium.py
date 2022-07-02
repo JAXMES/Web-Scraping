@@ -38,7 +38,7 @@ button.click()
 follow_link = driver.find_element(By.XPATH, '//*[@id="rso"]/div[1]/div/div/div[1]/div/a/h3').click()
 
 
-# Screenshots
+# Screenshots (.save for the entire page)
 
 driver.save_screenshot(r'C:\Web Scraping\selenium.png')
 
@@ -46,7 +46,10 @@ driver.save_screenshot(r'C:\Web Scraping\selenium.png')
 
 driver.find_element(By.XPATH, '/html/body/div/main/div[4]/div[5]/a/img').screenshot(r'C:\Web Scraping\selenium1.png')
 
-# search & screenshot the selected picture of a long haired gray cat
+
+
+
+# Search & screenshot the selected picture of a long haired gray cat
 
 driver = webdriver.Chrome(service=s)
 
@@ -59,8 +62,31 @@ box.send_keys(Keys.RETURN)
 driver.find_element(By.XPATH, '//*[@id="hdtb-msb"]/div[1]/div/div[2]/a').click() # Go to images
 
 # we might need the full XPATH
-driver.find_element(By.XPATH, '/html/body/div[2]/c-wiz/div[3]/div[1]/div/div/div/div[1]/div[1]/span/div[1]/div[1]/div[2]/a[1]/div[1]/img').screenshot(r'C:\Web Scraping\cats.png')
+#driver.find_element(By.XPATH, '/html/body/div[2]/c-wiz/div[3]/div[1]/div/div/div/div[1]/div[1]/span/div[1]/div[1]/div[2]/a[1]/div[1]/img').screenshot(r'C:\Web Scraping\cats.png')
 
 
 
+# Self-Scrolling
+
+driver = webdriver.Chrome(service=s)
+
+driver.get("https://www.google.com/")
+
+box = driver.find_element(By.XPATH, '/html/body/div[1]/div[3]/form/div[1]/div[1]/div[1]/div/div[2]/input')
+box.send_keys('long haired gray cat')
+box.send_keys(Keys.RETURN)
+
+driver.find_element(By.XPATH, '//*[@id="hdtb-msb"]/div[1]/div/div[2]/a').click() # Go to images
+
+driver.execute_script('return document.body.scrollHeight') # Height of the page
+
+driver.execute_script('window.scrollTo(0,5000)') # Scroll until the specified height of the page
+
+while True:
+    driver.execute_script('window.scrollTo(0, document.body.scrollHeight)') # Keep scrolling down
+
+
+
+# Wait Times
+    
 
