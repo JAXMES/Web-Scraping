@@ -8,6 +8,10 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+import time
+
 s=Service(ChromeDriverManager().install())
 
 # Starts the browser
@@ -88,5 +92,23 @@ while True:
 
 
 # Wait Times
-    
+
+driver = webdriver.Chrome(service=s)
+
+driver.get("https://www.google.com/")
+
+box = driver.find_element(By.XPATH, '/html/body/div[1]/div[3]/form/div[1]/div[1]/div[1]/div/div[2]/input')
+box.send_keys('Cat')
+box.send_keys(Keys.RETURN)
+
+# use this to wait for specific elements to load
+#element = WebDriverWait(driver, 10).until(EC.presence_of_all_elements_located((By.ID, '')))
+
+# OR use this to wait a few seconds
+time.sleep(5)
+
+driver.find_element(By.XPATH, '/html/body/div[7]/div/div[4]/div/div[1]/div/div[1]/div/div[2]/a').click()
+
+
+
 
