@@ -8,6 +8,10 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+import time
+
 s=Service(ChromeDriverManager().install())
 
 # Starts the browser
@@ -36,7 +40,7 @@ time.sleep(5)
 #4. scroll until the movie jaws appear
 
 driver.execute_script('return document.body.scrollHeight')
-
+driver.execute_script('window.scrollTo(0,22700)')
 
 
 #5 take screen short of the page and then get the image of the poster
