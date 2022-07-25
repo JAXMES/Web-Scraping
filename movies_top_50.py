@@ -45,4 +45,7 @@ driver.execute_script('window.scrollTo(0,22700)')
 
 #5 take screen short of the page and then get the image of the poster
 
+driver.save_screenshot(r'C:\Web Scraping\whole_jaws_screenshot.png') # Entire page screenshot
+
+driver.find_element(By.XPATH, '//*[@id="main"]/div/div[4]/div[3]/div[50]/div[1]/a/img').screenshot(r'C:\Web Scraping\only_image_jaws.png')
 
