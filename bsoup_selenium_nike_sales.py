@@ -27,7 +27,7 @@ last_height = driver.execute_script('return document.body.scrollHeight')
 
 while True:
     driver.execute_script('window.scrollTo(0,document.body.scrollHeight)')
-    time.sleep(10)
+    time.sleep(3)
     
     new_height = driver.execute_script('return document.body.scrollHeight')
     if new_height == last_height:
@@ -63,6 +63,9 @@ product_sale_card = soup.find_all('div', class_= 'product-price is--current-pric
 len(product_sale_card) # CULPRIT
 
 
+product_lone_price_card = soup.find_all('div', class_= 'product-price is--current-price css-11s12ax')
+len(product_lone_price_card) # NEW
+
 
 
 # Dataframe
@@ -70,18 +73,27 @@ len(product_sale_card) # CULPRIT
 df = pd.DataFrame({'Link':[''], 'Name':[''], 'Subtitle':[''], 'Price':[''], 'Sale Price':['']})
 
 # loop to get all products while adding them to the df
-# try is necessary to avoid some errors
+# try - except --pass might be necessary to avoid some errors
+
 
 for product in product_card:
-    try:
-        link = product.find('a', class_= 'product-card__link-overlay').get('href')
-        name = product.find('div', class_= 'product-card__title').text
-        subtitle = product.find('div', class_= 'product-card__subtitle').text
+    
+    link = product.find('a', class_= 'product-card__link-overlay').get('href')
+    name = product.find('div', class_= 'product-card__title').text
+    subtitle = product.find('div', class_= 'product-card__subtitle').text
+    #full_price = product.find('div', class_= 'product-price is--striked-out css-0').text
+    #sale_price = product.find('div', class_= 'product-price is--current-price css-1ydfahe').text
+        
+    if product.find('div', class_= 'product-price is--striked-out css-0') is None:
+        full_price = product.find('div', class_= 'product-price is--current-price css-11s12ax').text
+        sale_price = 'N/A'
+    else:
         full_price = product.find('div', class_= 'product-price is--striked-out css-0').text
         sale_price = product.find('div', class_= 'product-price is--current-price css-1ydfahe').text
-        df = df.append({'Link':link, 'Name':name, 'Subtitle':subtitle, 'Price':full_price, 'Sale Price':sale_price}, 
+            
+        
+    df = df.append({'Link':link, 'Name':name, 'Subtitle':subtitle, 'Price':full_price, 'Sale Price':sale_price}, 
                        ignore_index = True)
-    except:
-        pass
+   
 
 
