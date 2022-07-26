@@ -47,14 +47,21 @@ soup = BeautifulSoup(driver.page_source,'lxml')
 product_card = soup.find_all('div', class_= 'product-card__body')
 len(product_card)
 
+# Dataframe
+
+df = pd.DataFrame({'Link':[''], 'Name':[''], 'Subtitle':[''], 'Price':[''], 'Sale Price':['']})
+
+
 for product in product_card:
-    
-    link = product.find('a', class_= 'product-card__link-overlay').get('href')
-    name = product.find('div', class_= 'product-card__title').text
-    subtitle = product.find('div', class_= 'product-card__subtitle').text
-    full_price = product.find('div', class_= 'product-price is--striked-out css-0').text
-    sale_price = product.find('div', class_= 'product-price is--current-price css-1ydfahe').text
-    
-    break
+    try:
+        link = product.find('a', class_= 'product-card__link-overlay').get('href')
+        name = product.find('div', class_= 'product-card__title').text
+        subtitle = product.find('div', class_= 'product-card__subtitle').text
+        full_price = product.find('div', class_= 'product-price is--striked-out css-0').text
+        sale_price = product.find('div', class_= 'product-price is--current-price css-1ydfahe').text
+        df = df.append({'Link':link, 'Name':name, 'Subtitle':subtitle, 'Price':full_price, 'Sale Price':sale_price}, ignore_index = True)
+        
+    except:
+        pass
 
 
