@@ -96,4 +96,4 @@ for product in product_card:
                        ignore_index = True)
    
 
-
+df.to_csv(r'C:\Web Scraping\nikes.csv')
