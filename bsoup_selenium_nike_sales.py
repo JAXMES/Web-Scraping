@@ -40,8 +40,30 @@ while True:
 
 soup = BeautifulSoup(driver.page_source,'lxml')
 
+
+# Dataframe is not getting all the info. Lets test if we got all the lengths correct.
 product_card = soup.find_all('div', class_= 'product-card__body')
-len(product_card)
+len(product_card) # Correct
+
+product_link_card = soup.find_all('a', class_= 'product-card__link-overlay')
+len(product_link_card) # Correct
+
+product_name_card = soup.find_all('div', class_= 'product-card__title')
+len(product_name_card) # Correct
+
+product_sub_card = soup.find_all('div', class_= 'product-card__subtitle')
+len(product_sub_card) # Correct
+
+
+product_full_price_card = soup.find_all('div', class_= 'product-price is--striked-out css-0')
+len(product_full_price_card) # CULPRIT
+
+
+product_sale_card = soup.find_all('div', class_= 'product-price is--current-price css-1ydfahe')
+len(product_sale_card) # CULPRIT
+
+
+
 
 # Dataframe
 
