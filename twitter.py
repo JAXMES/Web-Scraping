@@ -59,7 +59,7 @@ else:
     box_pass.send_keys('112233445566')
     box_pass.send_keys(Keys.RETURN)
     
-# Wait for serach bar
+# Wait for serach bar (For some reason XPATH isnt working)
 #WebDriverWait(driver,10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="react-root"]/div/div/div[2]/main/div/div/div/div/div/div[1]/div[1]/div/div/div/div/div[1]/div[2]/div/div/div/form/div[1]/div/div/label/div[2]/div/input')))
 time.sleep(3)
 # Twitter placeholder is more efficient since regular xpath fails
@@ -67,10 +67,29 @@ search = driver.find_element(By.XPATH, "//input[@placeholder='Search Twitter']")
 search.send_keys(celebrity)
 search.send_keys(Keys.RETURN)
 
+time.sleep(3)
+
 # Choose his profile
 profile = driver.find_element(By.XPATH, '//*[@id="react-root"]/div/div/div[2]/main/div/div/div/div[1]/div/div[2]/div/section/div/div/div[3]/div/div/div/div/div[2]/div[1]/div[1]/div/div[1]/a/div/div[1]/span/span')
 profile.click()
 
+time.sleep(3)
+
 #Bsoup
 soup = BeautifulSoup(driver.page_source, 'lxml')
 postings = soup.find_all('div', class_= 'css-901oao r-1nao33i r-37j5jr r-a023e6 r-16dba41 r-rjixqe r-bcqeeo r-bnwqim r-qvutc0')
+
+len(postings)
+
+tweets = []
+
+while True:
+    for post in postings:
+        tweets.append(post.text)
+    driver.execute_script('window.scrollTo(0,document.body.scrollHeight)')
+    time.sleep(2)
+    soup = BeautifulSoup(driver.page_source, 'lxml')
+    postings = soup.find_all('div', class_= 'css-901oao r-1nao33i r-37j5jr r-a023e6 r-16dba41 r-rjixqe r-bcqeeo r-bnwqim r-qvutc0')
+    tweets2 = list(set(tweets))
+    if len(tweets2) > 100:
+        break
