@@ -36,6 +36,8 @@ soup = BeautifulSoup(driver.page_source, 'lxml')
 postings = soup.find_all('div', class_= 'job_seen_beacon')
 len(postings)
 
+df= pd.DataFrame({'Link':[''], 'Job Title':[''], 'Company':[''], 'Location':[''], 'Salary':[''], 'Date':['']})
+
 #Loop to gather all the postings
 for post in postings:
     link = post.find('a', class_= 'jcs-JobTitle css-jspxzf eu4oa1w0').get('href')
@@ -46,6 +48,16 @@ for post in postings:
         location = post.find('div', class_= 'companyLocation').text.strip()
     except:
         location = 'N/A'
-    post.find('span', class_= 'visually-hidden').decompose()
-    date = post.find('span', class_= 'date')
-    date
+    # Remove extra hidden content in date
+    try:
+        post.find('span', class_= 'visually-hidden').decompose()
+        date = post.find('span', class_= 'date').text
+    except:
+        date = 'N/A'
+    try:
+        salary = post.find('div', class_= 'attribute_snippet').text
+    except:
+        salary = 'N/A'
+    df = df.append({'Link':link_full, 'Job Title':title, 'Company':company, 'Location':location, 'Salary':salary, 'Date':date}, 
+                    ignore_index = True)
+
