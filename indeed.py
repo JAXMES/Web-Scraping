@@ -23,3 +23,8 @@ driver = webdriver.Chrome(service=s)
 driver.get("https://www.indeed.com/")
 time.sleep(3)
 
+#1. Input Job Title into input box
+
+box_job = driver.find_element(By.XPATH, "//input[@placeholder='Job title, keywords, or company']")
+box_job.send_keys("Data Analyst")
+box_job.send_keys(Keys.RETURN)
