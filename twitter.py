@@ -90,6 +90,13 @@ while True:
     time.sleep(2)
     soup = BeautifulSoup(driver.page_source, 'lxml')
     postings = soup.find_all('div', class_= 'css-901oao r-1nao33i r-37j5jr r-a023e6 r-16dba41 r-rjixqe r-bcqeeo r-bnwqim r-qvutc0')
-    tweets2 = list(set(tweets))
+    tweets2 = list(set(tweets)) # it stores all without duplicates
     if len(tweets2) > 100:
         break
+    
+    
+#Check for specific words on the saved tweets
+new_tweets = []
+for i in tweets2:
+    if 'MERRY' in i:
+        new_tweets.append(i)
